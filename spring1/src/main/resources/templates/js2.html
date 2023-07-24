@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체</title>
+    <Script>
+        //Date 클래스
+        function test1()
+        {
+            let d = new Date();
+            let year = d.getFullYear();
+            let month = d.getMonth();
+            let realmonth = parseInt(month)+1;
+            let date = d.getDate();
+            alert(year+'년'+realmonth+'월'+date+'일');
+            console.log(d);
+            console.log(d.getFullYear);
+        }
+
+        //String 클래스
+        function test2()
+        {
+            let s = 'abcd1234';
+            console.log(s.charAt(0));
+            console.log(s.indexOf('ㅌ')); //몇번째에 있는지 . 못찾으면 -1이 반환됨 
+            console.log(s.startsWith('ab')); //ab로 시작하는가 true,false
+            console.log(s.substring(1,3)); //1번부터 3번전까지의 부분 문자열  
+
+            s='010-1111-2222';
+            arr = s.split('-'); //변수는 대입한 값에따라 정해짐??
+            console.log(arr[0]);
+            console.log(s.lastIndexOf('-'));//뒤에서부터 몇번째인지
+            console.log(s.replace('-','/'));
+            console.log(s.replace(/-/g,'/'));
+
+        }
+
+        function test3()
+        {
+            //주민번호를 입력받아 나이와 성별을 출력
+            //글자수가 14자
+            //모든 자리가 숫자(-빼고) for 문? isNaN(a)<숫자인지 아닌지를 확인하는 함수  
+            //성별 1234
+            //월, 일(월에따라 입력받을 수 있는 일이 다름)
+            //년도
+            let nowdate = new Date();
+            let gender = null;
+            let age = 0;
+            let idnum = prompt('주민등록번호를 입력하여 주십시오');
+            while(true)
+            {
+                //14자 또는 - 이 들어있는지
+                if(idnum.length!=14 || idnum.charAt(6)!='-') 
+                {
+                    idnum = prompt('입력이 잘못되었습니다 . 다시 입력하여 주십시오');continue;
+                }
+                let fnb = idnum.split('-');
+                let forward = fnb[0];
+                let back = fnb[1];
+                //숫자와 -외의 것이 포함되어있는지 
+                if(isNaN(forward) || isNaN(back))
+                {
+                    idnum = prompt('문자는 들어갈 수 없습니다. 다시 입력하여 주십시오');continue;
+                }
+                let year = parseInt(forward.substring(0,2));
+                let month = parseInt(forward.substring(2,4));
+                let day = parseInt(forward.substring(4,6));
+                //년,월,일 확인
+                if (year>nowdate.getFullYear)
+                {
+                    idnum = prompt('미래에서 오셨습니까? 다시 입력하여주십시오');continue;
+                    if (month<1 || month>12)
+                    {
+                        idnum = prompt('월은 1~12월만 입력가능합니다.');continue;
+                        if(month == 1 || month<= 8 && month % 2 == 1 ||month >= 8 && month %2 == 0)
+                        {
+                            if(day>31)
+                            {
+                                idnum = prompt('날짜확인 . 다시 입력하십시오');continue;
+                            }
+                        }
+                        else if (month==2)
+                        {
+                            if ((year % 4 == 0 && year % 100 !=0)|| year % 400 == 0) 
+                            {
+                                if(day>29)
+                                {
+                                    idum = prompt('날짜확인 . 다시 입력하십시오'); continue; 
+                                }
+                            }
+                            else if (day>28)
+                            {
+                                idum = prompt('날짜확인 . 다시 입력하십시오'); continue;
+                            }
+                        }
+                        else if (month == 4 || month ==6 || month ==9 || month == 11)
+                        {
+                            if(month>30)
+                            {
+                                idum = prompt('날짜확인 . 다시 입력하십시오'); continue;
+                            }
+                        }
+                    }
+                }
+                //성별확인
+                if (0 > parseInt(back.charAt(0)) || parseInt(back.charAt(0)) > 5)
+                {
+                    idnum = prompt('성별은 1~4만 입력가능합니다.'); continue;
+                }  
+                else
+                {
+                    if(parseInt(back.charAt(0))==1)
+                    {
+                        gender = '남자';
+                        year += 1900; 
+                    }
+                    else if(parseInt(back.charAt(0))==2)
+                    {
+                        gender = '여자';
+                        year += 1900;
+                    }
+                    else if(parseInt(back.charAt(0))==4)
+                    {
+                        gender = '여자';
+                        year += 2000;
+                    }
+                    else
+                    {
+                        gender = '남자';
+                        year += 2000; 
+                    }
+                }
+                age = nowdate.getFullYear() - year;
+                alert(year+'년 '+month+'월 '+day+'일생 '+age+'살 '+gender+'입니다.') ;
+                break;
+            }
+        }
+
+        function test4()
+        {
+            let ar = [10,20,30];
+            let ar2 = [];
+
+            console.log(ar);
+            console.log(ar.length);
+            console.log(ar[1]);
+
+            ar.push(100);
+            console.log(ar);
+            let n = ar.pop();
+            console.log(n,ar);
+
+            ar[2] = 1000;
+            ar[5] = 2000;
+            console.log(ar[3]);
+            console.log(ar);
+            
+            //배열 요소 반복
+            for (let i = 0;i < ar.length;i++)
+            {
+                console.log(ar[i]);
+            }
+            //배열 요소 반복 2
+            ar.forEach(function(n)
+            {
+                console.log(n);
+            })
+        }
+    </Script>
+</head>
+<body>
+    <h1>[ 객체 ]</h1>
+    <p><a href="javascript:test1()">Date 객체</a></p>
+    <p><a href="javascript:test2()">String 객체</a></p>
+    <p><a href="javascript:test3()">String 객체 예제</a></p>
+    <p><a href="javascript:test4()">배열</a></p>
+    
+</body>
+</html>

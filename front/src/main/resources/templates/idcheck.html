@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>아이디 중복확인</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+$(document).ready(function(){
+	$('inputid').keyup(function(){ //키보드에 한글자를 눌렀다 뗄때마다 발생하는 이벤트 
+		let id = $(this).val();
+		
+		if (id.length<3 || id.length >10)
+			{
+				$('#msg').html('Id는 3~10자로 입력하십시오')
+				$('#submitButton').attr('disabled',true);
+				return;
+			}
+		$.ajax({
+			url:'idcheck2',
+			method:'post',
+			data:{memberid:id},
+			success:function(n){
+				if(n==0)
+				{
+					$('#msg').html('사용가능합니다');
+					$('#submit').attr('disabled',false);
+				}
+				else if(response==1){
+					$('#msg').html('이미 사용중인 아이디 입니다');
+					$('#submit').attr('disabled',true);
+				}
+				else{
+					$('#msg').html('서버 응답 형식 오류');
+					$('#submit').attr('disabled',true);
+				}
+				
+				
+			}
+			
+			
+		})
+		
+	})
+})
+
+</script>
+</head>
+<body>
+	<h1>[ ID 중복 확인 ]</h1>
+	<form th:action="@{/member/joinMember}" method="post">
+		ID <input type="text" id="inputid" onkeyup="check()">
+		   <div id="msg"></div>
+		이름 <input type="text" id="name">
+		<input type="submit" value="가입" id="submit" disabled="disabled"><!-- disabled 조건만족하지않으면 버튼 안눌리게  -->
+	</form>
+	
+</body>
+</html>

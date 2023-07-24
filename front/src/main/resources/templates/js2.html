@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>front</title>
+<script>
+let w = null;
+
+function test1()
+{
+	w=window.open('js1','win','top=300,left=500,width=300,height=300');
+	//이동할 페이지, 페이지이름 , 위치랑 크기 
+}
+function test2()
+{
+	window.open('http://www.nate.com','win','top=400,left=400,width=400,height=400');
+}
+function test3()
+{
+	window.close();
+}
+function test4()
+{
+	 let a = screen.width / 2;
+	 let b = screen.height / 2;
+	 let rightPosition = screen.width - a;  // 화면 오른쪽 끝으로부터 창의 가로 위치 계산
+	 let topPosition = 0;                   // 화면 상단에 위치하도록 0으로 설정
+
+	 w = window.open('html1.html', 'newwin', 'width=' + a + ', height=' + b + ', left=' + rightPosition + ', top=' + topPosition + ', resizable=no');
+	
+}
+
+//5초 카운트 후 다른 사이트로 이동
+let count = null;
+let num = 6;
+function test5()
+{
+	count = setInterver(funtion()
+	{
+		let output = document.getElementById('output');
+		output.innerHTML=--num;
+		
+		if (num==0)
+		{
+			clearInterval(count);
+			output.innerHTML='';
+			location.href='http://www.naver.com';
+		}
+	},1000);
+}
+
+</script>
+</head>
+<body>
+	<h1>[JavaScript 1 - 객체 ]</h1>
+	
+	<p><a href="javascript:test1()">브라우저 객체 모델</a></p>
+	<p><a href="javascript:test2()">새 창 열기</a></p>
+	<p><a href="javascript:test3()">창닫기</a></p>
+	<p><a href="javascript:test4()">창 열기 -> 화면 오른쪽위에 가로 세로 반 크기로</a></p>
+	<p><a href="javascript:test5()" id="output">"네이버"로 이동</a></p>
+	
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>spring5</title>
+</head>
+<body>
+	<h1> [ spring 5 ]</h1>
+	
+	<p sec:authorize = "isAuthenticated()"><!-- 로그인을 안했을땐 보통익명으로 나타나는데 안보이게하는것 -->
+		<span th:text="${#authentication.name}"></span> 님 로그인 중
+	</p>
+	
+	<p><a th:href="@{/member/join}">회원가입</a></p>
+	<p sec:authorize = "!isAuthenticated()"><a th:href="@{/member/loginForm}">로그인</a></p>
+	<p sec:authorize = "isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></p>
+	<p sec:authorize = "isAuthenticated()"><a th:href="@{/member/updateForm}">개인정보 수정</a></p>
+	<p><a th:href="@{/board/board}">게시판</a></p>
+	
+	<p><a href="thymeleaf">Thymeleaf (Security)</a></p>
+	<p><a href="admin"> 관리자 페이지 </a></p><!-- 회원 종류에 따라 접근할수 있고 없고 -->
+	<p><a href="errortest"> 에러 처리 </a></p>
+</body>
+</html>

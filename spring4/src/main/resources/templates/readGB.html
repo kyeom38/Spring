@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>방명록 열람</title>
+</head>
+<body>
+	<h1>[ 방명록 열람 ]</h1>
+<!-- 0. 총 몇개의 게시글 . 
+	 1. 글번호 - 자동으로 값을 가져와서 보여줌 게시글이 하나도 없으면 1 있으면 다음순서 seq이용 
+ 	 2. 작성자 이름 
+ 	 3. 비밀번호 -- 게시글 마다  
+ 	 4. 글내용 
+ 	 5. 작성시간 자동으로 가져오게 . -->
+ <p><a th:href = "@{/writeGB}" th:text="글쓰기"></a></p>
+
+ <table th:each="gb:${readGB}" >
+ <tr>
+ 	<th> 작성자 </th>
+ 	<td th:text="${gb.name}"></td>
+ </tr>
+ <tr>
+ 	<th> 작성일 </th>
+ 	<td th:text="${gb.inputdate}"></td>
+ </tr>
+ 
+ <tr>
+ 	<td colspan="2"><pre th:text="${gb.message}"></pre></td>
+ </tr>
+ <tr>
+ 	<td colspan="2">
+ 	<form th:action="@{/deleteGB}" method="post">
+ 			<input type="hidden" name="num" th:value="${gb.num}">
+ 	비밀번호 <input type="password" name="password">
+ 			<input type="submit" value="삭제">
+ 	</form>
+ 	</td>
+ </tr>
+ </table>
+
+
+</body>
+</html>

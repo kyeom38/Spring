@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="net.softsociety.spring4.dao.GuestBookDAO">
+
+<!--글쓰기 -->
+<insert id="writeGB" parameterType="GuestBook">
+	insert into guestbook (num,name,message<if test="password!=null and password!=''">,password</if>) values (guestbook_seq.nextval,#{name},#{message}<if test="password!=null and password!=''">,#{password}</if>)
+</insert>
+
+
+<!-- 글목록 -->
+<select id ="readGB" resultType="GuestBook">
+	select num,name, message, to_char(inputdate,'yy.mm.dd') as inputdate ,upvote ,downvote from guestbook order by num asc
+</select>
+
+<!-- 글삭제 -->
+<delete id = "deleteGB" parameterType="GuestBook">
+	delete from guestbook where num=#{num} and password=#{password}
+</delete>
+
+<!-- 글하나 가져오기(수정을 위한) -->
+<select id = "selectOne" parameterType="GuestBook" resultType="GuestBook">
+	select * from GuestBook where num=#{num} and password=#{password}
+</select>
+
+<!-- 글수정 -->
+<update id ="reviseGB" parameterType="GuestBook">
+	update GuestBook set message = #{message} where num=#{num} and password=#{password}
+</update>
+
+<!-- 추천 -->
+<update id ="upvote" parameterType="int">
+	update GuestBook set upvote = upvote+1 where num=#{num}
+</update>
+
+<!-- 비추천 -->
+<update id ="downvote" parameterType="int">
+	update GuestBook set downvote = downvote+1 where num=#{num}
+</update>
+</mapper>

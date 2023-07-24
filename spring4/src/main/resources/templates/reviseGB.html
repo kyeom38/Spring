@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>방명록 수정</title>
+<script>
+/* function fin(n)
+{
+	let pw = document.getElementById('password'+n).value;
+	document.getElementById('num').value = n;
+	document.getElementById('name')value;
+	document.getElementById('inputdate').value;
+	document.getElementById('password').value = pw;
+	document.getElementById('finalForm').submit(); //꼭 기억할것
+} */
+</script>
+</head>
+<body>
+<!--1. 글번호 - 고정 
+ 	 2. 작성자 이름 고정
+ 	 3. 비밀번호 -- 수정완료할때 다시한번확인하기 or 받아온 값 그대로 
+ 	 4. 글내용 --내용만  변경
+ 	 5. 수정시간 자동으로 가져오게 . 작성일 (수정됨으로 바뀌게) -->
+ <h1>[ 방명록 수정 ]</h1>
+<form action="reviseGB2" method="post" id="finalForm">
+<table>
+	<tr>
+		<td> 수정글 번호:<input type="text" th:value="${a.num}" name = "num" id="num" th:readonly="${a.num}"></td>
+	</tr>
+	<tr> 
+		<td> 작성자 : <input type="text" th:value="${a.name}" name ="name" id="name" th:readonly="${a.name}"></td>
+	</tr>
+	<tr>
+    	<td> 작성일 : <input type="text" th:value="${a.inputdate}" name ="inputdate" id="inputdate" th:readonly="${a.inputdate}"></td>
+	</tr>
+	<tr>
+		<th> 비밀번호 </th>
+		<td><input type="password" name = "password" id="password" maxlength="10" required="required"></td>
+	</tr>
+	<tr>
+ 		<th> 내용 </th>
+ 		<td><textarea name = "message" id="message" required="required"></textarea><td>
+	</tr>
+	<tr>
+ 		<td colspan="2" align="center"><input type="submit" value ="수정완료" ></td><!-- onclick ="fin(this.getAttribute('num'))" -->
+	</tr>	
+</table>
+<!-- <input type="hidden" name="num" value="0" id="num" >
+<input type="hidden" name="password" value="" id="pw">	 -->
+</form>
+</body>
+</html>

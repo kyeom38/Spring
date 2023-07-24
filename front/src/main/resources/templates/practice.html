@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<title>Document</title>
+<style>
+    .calculate {
+        margin: auto;
+        text-align: center;
+    }
+
+    .display {
+        height: 30px;
+        font-size: 20px;
+        text-align: right;
+        padding: 5px;
+        margin-bottom: 10px;
+        border: none;
+    }
+
+    .button {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .operator {
+        background-color: #ccc;
+    }
+
+    .operator:hover {
+        background-color: #aaa;
+    }
+
+    table {
+        margin: auto;
+    }
+</style>
+
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+$(document).ready(function()
+{
+	$('#img1').click(imageChange);
+	
+	//이미지 파일의 경로 
+	let path = '[[@{/img/}]]';
+	//이미지 파일들 이름 
+	let filename=['아리엘.png','백설공주.png','자스민.png','라푼젤.png','포카혼타스.png'];
+	//현재 표시중인 이미지 파일 인덱스 
+	let index=0;
+	//반복작업 
+	let interAuto=null;
+	
+	function imageChange()
+	{
+		if(interAuto==null)
+		{
+			interAuto=setInterval(function()
+			{	
+				index++;
+				if(index==filename.length)
+				{
+					index=0;
+				}
+				$('#img1').attr('src',path+filename[index]);
+			},500);
+		}
+		else
+		{
+			clearInterval(interAuto);
+			interAuto = null;
+		}
+	}
+	
+	function add(value) 
+	{
+	    let display = $('.display');
+	    let currentValue = display.val();
+	    let lastChar = currentValue[currentValue.length - 1];
+	
+	    if (lastChar !== value) 
+	    {
+	        display.val(currentValue + value);
+	    }
+	}
+
+	$('.button').click(function() 
+	{
+	    var value = $(this).text();
+	    add(value);
+	});
+	
+	$('.clear').click(function() 
+	{
+	    $('.display').val('');
+	});
+	
+	$('.calc').click(function() 
+	{
+	    var expression = $('.display').val();
+	    var result = eval(expression);
+	    $('.display').val(result);
+	});
+	
+});
+
+</script>
+</head>
+<body>
+	<h3>클릭하면 사진이 일정간격으로 바뀌게 </h3>
+	<p><img th:src="@{/img/아리엘.png}" id="img1"></p>
+
+	<h3>계산기<h3>
+	<div class="calculate">
+        <table border="1">
+            <tr>
+                <td colspan="4"><input type="text" class="display" placeholder="0" readonly></td>
+            </tr>
+            <tr>
+                <td class="button">7</td>
+                <td class="button">8</td>
+                <td class="button">9</td>
+                <td class="button operator">+</td>
+            </tr>
+            <tr>
+                <td class="button">4</td>
+                <td class="button">5</td>
+                <td class="button">6</td>
+                <td class="button operator">-</td>
+            </tr>
+            <tr>
+                <td class="button">1</td>
+                <td class="button">2</td>
+                <td class="button">3</td>
+                <td class="button operator">*</td>
+            </tr>
+            <tr>
+                <td class="button">0</td>
+                <td class="button clear">C</td>
+                <td class="button calc">=</td>
+                <td class="button operator">/</td>
+            </tr>
+        </table>
+	
+	
+</body>
+</html>

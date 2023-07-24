@@ -1,0 +1,80 @@
+<!DOCTYPE html><!-- 확장자는 html이지만 실제로는 서버에서 구현되는 코드 (Java)? 페이지소스와는 살짝 다름  -->
+<html xmlns:th = "http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf1</title>
+<style>
+/*CSS주석*/
+</style>
+<link rel ="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<h1>[ Thymeleaf1 ]</h1>
+
+<h2>* 값 출력 </h2>
+<p>[[${str}]]</p>
+<p th:text="${str}">기본값</p>
+<p>결과는 <span th:text="${num}">숫자</span>입니다 </p>
+
+<h2>* 연산자 </h2>
+<p> 산술 연산자 + - * / % </p>
+<p th:text="${num+1}">000</p>
+<p th:text="${num-1}">000</p>
+<p th:text="${num*2}">000</p>
+<p th:text="${num/2}">000</p>
+<p th:text="${num%9}">000</p>
+<p> 비교 연산자 == != > < >= <= eq ne gt lt ge le</p>
+<!-- eq :equals / ne : not equals / gt lt ge le -->
+<p th:text="${num == 100}">000</p>
+<p th:text="${num eq 100}">000</p>
+<p> 논리 연산자 and or not </p>
+<p th:text="${num >= 50 and num<=100}">000</p>
+<p th:text="${num == 100 or num ==200}">000</p>
+
+<h2>* 문자열</h2>
+<p th:text="${tag}"></p> <!-- 태그도 글 내용의 하나로서 보여주는 것. -->
+<p th:utext="${tag}"></p> <!-- 태그가 동작하도록 보여주는 것. -->
+
+<!--/*
+타임리프 주석 : 클라이언트한테는 보이지 않음.서버에서 실행되기 전 사라짐.
+ */-->
+ 
+<h2>* 객체 출력</h2>
+<p th:text="${person}"></p>
+
+<p th:text="${person.name}"></p>
+<p th:text="${person.age}"></p>
+<p th:text="${person.age}"></p>
+<p th:text="${person.phone}"></p>
+<ul th:object="${person}">
+	<li th:text="*{name}"></li>
+	<li th:text="*{age}"></li>
+	<li th:text="*{phone}"></li>
+</ul>
+
+<h2>* 경로 생성</h2><!-- 꼭외우기 ! -->
+<p><a href="../param/input1">parameter 연습페이지</a></p>
+<p><a href="../spring2/param/input1">parameter 연습페이지</a></p>
+<p><a href="@{/param/input1">parameter 연습페이지</a></p><!-- 가장 상위경로 -->
+
+<p><img th:src="@{/img/dog.jpg}"></p>
+
+<h2>* 문자열 연결 </h2>
+<p th:text="${str +'adcd'}"></p>
+<p th:text="|${str}abcd|"></p>
+<p th:text="str+'abcd'"></p>
+
+<h2>* if문</h2>
+<p th:if="${str.equals('문자열')}">str의 값이 '문자열'일때 실행되는 부분</p>
+<p th:if="${str =='문자열'}"> str의 값이 '문자열'일 때 실행되는 부분</p>
+<p th:if="${num>100}"> num이 100보다 클 때 실행되는 부분</p>
+<p th:unless="${num>100}"> num이 100보다 크지않을때 실행되는 부분</p>
+
+<h2>* switch문</h2>
+<div th:switch="${num}">
+	<p th:case="1">num이 1일때 </p>
+	<p th:case="2">num이 2일때 </p>
+	<p th:case="*">num이 그 외 숫자 </p>
+</div>
+</body>
+</html>

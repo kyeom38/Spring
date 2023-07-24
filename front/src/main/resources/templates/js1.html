@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>front</title>
+<script>
+let input=document.getElementById('text');
+//alert('head'+input);
+
+function test1()
+{
+	let input=document.getElementById('text');
+	//alert('test1:'+input);
+}
+
+let num1=1;
+function test2()
+{
+	let num2=1;
+	num1++;
+	num2++;
+	//alert(num1+","+num2);
+}
+
+function test3()
+{
+	console.log(a);
+	//console.log(b);
+	//console.log(c);
+	
+	var a = 1;
+	let b = 2;
+	const c = 3;
+	
+	console.log(a,b,c);
+	
+	var a = 'abc'; //잘못된 방식이지만 오류는 안남.. 조용히묻어감 
+	console.log(a);
+	//let b = 'abc'; //재선언이 불가능하기때문에 에러  
+	b= 12345;
+	//c=12345; //다시 선언하거나 할당이 불가능하다
+	
+	console.log(typeof(a)); //a의 타입
+	console.log(isNaN(a)); //a가 숫자인지 아닌지 
+	console.log(a==null) //a가 null인가 
+}
+
+function test4()
+{
+	let a = 10;
+	let b = 20;
+	let c = plus(a,b);
+	console.log(c)
+}
+
+function plus(x,y,z)
+{
+	console.log(z);
+	console.log(z==undefined);
+	let res = x + y;
+	
+	return res;
+}
+
+</script>
+</head>
+<body>
+<script>
+let input2=document.getElementById('text');
+//alert('body'+input2);
+</script>
+	<h1>[ JavaScript 1 - 변수, 함수]</h1>
+	
+	<p><a href="javascript:test1()"> 현재 페이지의 객체에 접근</a></p>
+	<p><input type="text" id="text" value="입력란"></p>
+	<p id="text2">p태그 내의 글자</p>
+	
+	<p><a href="javascript:test2()">지역변수와 전역변수</a>
+	<p><a href="javascript:test3()">var, let, const</a>
+	<p><a href="javascript:test4()">매개변수와 리턴값 </a>
+<script>
+let input3=document.getElementById('text');
+//alert('/body'+input3);
+</script>
+</body>
+</html>

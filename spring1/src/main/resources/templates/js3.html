@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간 지연, 반복</title>
+    <script>
+        function output()
+        {
+            console.log('output() 함수 실행');
+        }
+
+        function test1()
+        {
+            setTimeout(output,3000); //1초당 1000
+        }
+        function test2()
+        {
+            setInterval(output,3000);
+        }
+        function outputTime()
+        {
+            let t = new Date();
+            let div = document.getElementById('outputDiv'); //가장 많이 쓸 함수 외워둘것 
+            div.innerHTML = t.getHours() + '시' + t.getMinutes()+ '분' + t.getSeconds() + '초'; // div에 입력이 되어 화면에서 나타남  
+        }
+        let time = null;
+        function test3()
+        {
+            time = setInterval(outputTime,1000);
+
+        }
+        function test4()
+        {
+            clearInterval(time);
+        }
+    </script>
+</head>
+<body>
+    <p><a href="javascript:output()">output() 실행 </a></p>
+    <p><a href="javascript:test1()"> output() 을 3초 후에 실행 </a></p>
+    <p><a href="javascript:test2()"> output() 을 3초 마다 실행 </a></p>
+
+    <p><a href="javascript:test3()"> 시계 실행 </a></p>
+    <p><a href="javascript:test4()"> 시계 중지 </a></p>
+    <div id = "outputDiv"></div>
+</body>
+</html>

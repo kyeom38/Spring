@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>폼에 입력한 값 계산하기</title>
+<script src="../jas/calculator.js"></script>
+</head>
+<body>
+ <form action = "answer" method="post" onsubmit="return warning()"> <!-- onsubmit false면 안넘어감  -->
+ <h1>[ 입력값 계산 ]</h1>
+ 첫번째 숫자 <input type="text" name = "num1" id = "num1" style="width: 40px;"> <br>
+        
+ 두번째 숫자 <input type="text" name = "num2" id = "num2" style="width: 40px;"> <br>
+        
+         <input type ="submit" value ="계산">
+ </form>
+</body>
+</html>

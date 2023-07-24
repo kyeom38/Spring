@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function del(n)
+{
+	let pw = document.getElementById('password'+n).value;
+	document.getElementById('num1').value = n;
+	document.getElementById('password').value = pw;
+	document.getElementById('deleteForm').submit(); //꼭 기억할것
+}
+
+function rev(n)
+{
+	let pw = document.getElementById('password'+n).value;
+	alert(pw+','+n);
+	document.getElementById('num2').value = n;
+	document.getElementById('pw').value = pw;
+	document.getElementById('reviseForm').submit();
+}
+
+/*function up(n)
+{
+	document.getElementById('cnt').value = n; //onclick으로 넘어온 값을 뽑아내 변수에 담기. 	
+}
+
+function down(n)
+{
+	document.getElementById('cnt').value = n;
+}*/
+</script>
+</head>
+<body>
+	
+	<h1>[  방명록 2 ]</h1>
+	
+<!-- 삭제폼  -->
+	<form th:action="@{/deleteGB}" method="post" id="deleteForm">
+		<input type="hidden" name="num" value="0" id="num1">
+		<input type="hidden" name="password" value=""  id="password">
+		<!-- 값을 가져가기 위함. value 값은 임시. 함수에서 값이 바뀌어들어감.  -->
+	</form>
+<!-- 수정화면으로 가기위한 수정폼 -->
+	<form th:action="@{/reviseGB}" method="post" id ="reviseForm">
+		<input type="hidden" name="num" value="0" id="num2" >
+		<input type="hidden" name="password" value="" id="pw">		
+	</form>
+	<p><a href="writeGB">글쓰기</a></p>
+ 
+    <table th:each="g : ${readGB}">
+      <tr>
+         <td>작성자:<span th:text="${g.name}"></span></td>
+      	 <td>
+      	 	<form th:action="@{/upvote}" method ="post" >
+      	 		<input type="hidden" name="num" th:value="${g.num}" >
+      	 		<button type="submit">👍</button><span th:text ="${g.upvote}"></span>
+      	 	</form>
+      	 </td>
+      	 <td>
+      	 	<form th:action="@{/downvote}" method ="post" >
+      	 		<input type="hidden" name="num" th:value="${g.num}" >
+      	 		<button type="submit">👎</button><span th:text ="${g.downvote}"></span>
+      	 	</form>
+      	 </td>   	 
+      </tr>
+      <tr>
+         <td>작성일:<span th:text="${g.inputdate}"></span></td>
+      <tr>
+      <tr>
+         <td>글번호:<span th:text="${g.num}"></span></td>
+      <tr>
+      <tr>
+      	<td colspan="2"><pre th:text="${g.message}"></pre></td>
+      </tr>
+      <tr>
+      	<td colspan="2">
+      		
+      				 
+      		비밀번호 <input type="password" th:id="|password${g.num}|">
+      				<input type="submit" value="수정" th:num="${g.num}" onclick ="rev(this.getAttribute('num'))"> 
+      			 	<input type="submit" value="삭제" th:num="${g.num}" onclick ="del(this.getAttribute('num'))">
+      				 
+      		
+      	</td>
+      </tr>
+   </table>
+ 
+</body>
+</html>

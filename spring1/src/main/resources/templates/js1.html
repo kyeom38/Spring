@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 기초문법</title>
+    <!--함수는 보통 Head 안에서 정의한다 --> 
+    <script>
+        function test1()
+        {
+            /*
+                Javascript에서 제공하는 함수를 이용한 출력
+            */
+            alert('javascript의 대화상자');
+            console.log('log 출력');
+        }
+    
+        //변수선언과 값 대입,타입(var,let,char)
+        function test2()
+        {
+            console.log(a);
+            //console.log(b); //선언전 사용은 에러
+            var a;
+            let b;
+            console.log(a);
+            console.log(b);
+            a=1;
+            b=2;
+            console.log(a);
+            console.log(b);
+
+            const c =10;
+            //c=11; //const로 선언한 변수는 초기화 이후 값 변경불가
+
+            var d;
+            console.log(d)
+            console.log(typeod(d));
+            d=1;
+            consol.log(typeof(d));
+            d='aaa';
+            consolel.log(typeof(d));
+    
+        }
+
+        let n =0;
+        function test3()
+        {
+            let m =0;
+            n++;
+            m++;
+            console.log(n,m);
+        }
+
+        function test4(a,b)
+        {
+            let c = a + b;
+            alert(a+'+'+b+'='+c);
+        }
+
+        function test5()
+        {
+            alert('확인 대화상자');
+            let res=confirm('선택 대화상자'); // 확인(true) 취소(false)로 실행이 나뉨 
+            console.log(res);
+
+            res= prompt('입력 대화상자');  //글자를 입력하면 String으로 입력이 됨. 취소나 빈상태로 확인 누를 시 null 
+            console.log(res);
+        }
+        function test6()
+        {
+            //네이버로 이동? 구글로 이동 ? 또는 현재페이지에
+            
+            if (confirm('네이버로 이동하시겠습니까?'))
+            {
+                location.href = 'http://www.naver.com';
+            }
+            else if(confirm('구글로 이동하시겠습니까?'))
+            {
+                location.href = 'http://www.google.com';
+            }
+        }
+        //1~ 입력받은 수 까지 합계
+        function test7()
+        {
+            let sum = 0;
+            let input = prompt('숫자를 입력하십시오');
+            let num = parseInt(input);
+            for(let i = 1; i <= num;i++)
+            {
+                console.log(i);
+                sum += i;
+            }
+            alert('합계 :'+sum);
+        }
+    </script>
+</head>
+<body>
+    <h1>[ JavaScript 기초문법 ]</h1>
+    <p> <a href="javascript:test1()">test1() 실행</a></p>
+    <p> <a href="javascript:test2()">test2() 실행</a></p>
+    <p> <a href="javascript:test3()">test3() - 전역변수,  지역변수 </a></p>
+    <p> <a href="javascript:test4(10,20)">test4() - 전역변수,  지역변수 </a></p>
+    <p> <a href="javascript:test5()">대화상자</a></p>
+    <p> <a href="javascript:test6()">if문 사용</a></p>
+    <p> <a href="javascript:test7()">for문 사용</a></p>
+    
+</body>
+</html>

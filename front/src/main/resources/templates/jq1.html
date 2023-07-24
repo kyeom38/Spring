@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>FRONT</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+$(document).ready(function(){
+	//전체 선택자
+	$('*').css('color','blue');
+	//태그 선택자 객체 또는 배열이 됨 
+	$('h1').css('color','red');
+	//ID 선택자 
+	$('#text1').css('color','green');
+	//class 선택자
+	$('.text2').css('color','pink');
+	$('.text3').css('background','yellow');
+	//그룹선택자
+	$('h1,div').css('background','gray');
+	
+	$('h2.text2').css('background','black');
+	$('h2.text2').css('color','white');
+	
+	//$('div p').css('color','red');
+	$('div > p').css('color','red');
+})
+</script>
+</head>
+<body>
+	<h1>[ jQuery 기본문법, 선택자]</h1>
+	
+	<h2> h2태그를 이용한 문자열 </h2>
+	<h2> h2태그를 이용한 문자열 </h2>
+	<p> p태그를 이용한 문자열 </p>
+	<p> p태그를 이용한 문자열 </p>
+	<p id="text1"> p 태그를 이용한 문자열</p>
+	<p class="text2"> p태그를 이용한 문자열 </p>
+	<p class="text2 text3"> p태그를 이용한 문자열 </p>
+	
+	<div>
+		<p> p태그를 이용한 문자열 </p>
+		<p> p태그를 이용한 문자열 </p>
+	</div>
+	<div>
+		<table>
+			<tr>
+				<td><p> p태그를 이용한 문자열 </p></td>
+				<td><p> p태그를 이용한 문자열 </p></td>
+			</tr>	
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 하위 경로?는 DAO패키지경로와 이름이 동일해야함 -->
+<mapper namespace="net.softsociety.test3.dao.AddInfoDAO">
+
+<!-- 메서드이름과 id가 동일해야함 -->
+<insert id="addinfo" parameterType="AddInfo">
+	insert into address values (#{num}, #{name}, #{address},#{post},#{phone})
+</insert>
+
+	
+</mapper>

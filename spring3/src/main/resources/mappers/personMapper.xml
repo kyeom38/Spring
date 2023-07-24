@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 하위 경로?는 DAO패키지경로와 이름이 동일해야함 -->
+<mapper namespace="net.softsociety.spring3.dao.PersonDAO">
+	<!-- 입력 -->
+	<!-- 메서드이름과 id가 동일해야함 -->
+	<insert id="insert" parameterType="Person">
+		insert into person values (#{idnum}, #{name}, #{age})
+	</insert>
+
+	<!-- 삭제 -->
+	<delete id = "delete" parameterType="string">
+		delete from person where idnum=#{idnum}
+	</delete>
+	<delete id = "delete2" parameterType="string">
+		delete from person where name =#{name}
+		<!-- like '%'||#{name}||'%' -->
+	</delete>
+	
+	<update id="update" parameterType="Person">
+		update person set name=#{name}, age=#{age} where idnum=#{idnum}
+	</update>
+	
+	<!-- 주민등록번호로 회원정보 조회 -->
+	<select id="selectOne" parameterType="string" resultType="Person">
+		select * from person where idnum=#{idnum}	
+	</select>
+	
+	<!-- 모든 회원 정보를 이름 순서로 정렬해서 조회 -->
+	<select id="selectAll" resultType="Person">
+		select * from person order by age desc
+	</select>
+</mapper>

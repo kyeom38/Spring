@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>[ Spring2 ]</h1>
+	<ol>
+		<li>Lombok & Logger
+			<ul>
+				<li><a href = "lom/lombok"> 롬복 테스트</a>
+				<li><a href = "lom/logger"> 로그 테스트</a>
+				<li><a href = ""></a></li>
+			</ul></li>
+		<li>서버와 값 주고받기
+			<ul>
+				<li><a href="param/input1"> POST method로 parameter 전달 1</a></li>
+				<li><a href="param/input2"> POST method로 parameter 전달 2</a></li>
+				<li><a href="param/input3?name=abc&age=11">GET method로 parameter 전달</a></li>
+				<li><a href="param/input3?age=11">GET method로 parameter 전달</a></li>
+				<li><a href="param/input3">GET method로 parameter 전달</a></li>
+				<li><a href="param/model"> Model 사용하기 </a></li> <!-- 요청이 들어오는 동안 유지됨 -->
+			</ul></li>
+		<li> 세션 사용  <!-- 클라이언트마다 하나씩 생성됨 .서버쪽 메모리-->
+			<ul>
+				<li><a href="ss/session1">세션에 저장</a></li>
+				<li><a href="ss/session2">세션에서 읽기</a></li>
+				<li><a href="ss/session3">세션에서 삭제</a></li>
+				<li th:if="${session.loginId==null}"><a href="ss/login">로그인</a></li>
+				<li th:if="${session.loginId!=null}"><a href="ss/logout">로그아웃</a></li>
+				<li th:if="${session.loginId!=null}"><span th:text="${session.loginId}"></span>님 접속중</li>
+			</ul></li>
+		<li> 쿠키 사용 <!-- 하드웨어 메모리.문자열만 저장가능 (길지 않은것) 한글은 안됨. 인코딩해야함. String 변수 = URLEncoder.encode(변수,"UTF-8") -->
+			<ul>
+				<li><a href="ck/cookie1">쿠키 저장</a></li>
+				<li><a href="ck/cookie2">쿠키 삭제</a></li>
+				<li><a href="ck/cookie3">쿠키 읽기</a></li>
+			</ul>	</li>
+		
+		<li> Thymeleaf 사용 </li>
+			<ul>
+				<li><a href="th/thymeleaf1">타임리프 문법 1</a>
+				<li><a href="th/thymeleaf2">타임리프 문법 2</a>
+			</ul>
+		<li> 연습문제 </li>
+			<ul>
+				<li><a href="ex/calc1">폼에 입력한 값 계산하기</a></li>
+				<!-- 문제내용 클래스룸에 -->
+				<li><a href="ex/cookie">방문 횟수 카운트</a>
+					처음 방문하는 경우는 입력 폼을 보여주고 영문 아이디를 입력받는다. 
+					재방문하는 경우는 아이디와 방문횟수를 출력한다. 
+			</ul>
+	</ol>
+</body>
+</html>

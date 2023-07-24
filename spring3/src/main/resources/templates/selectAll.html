@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>spring3</title>
+<style>
+table
+{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+td,th 
+{
+	width:100px;
+	border:1px solid black;
+	text-align;center;
+}
+</style>
+
+<script>
+	function deletePerson(id)
+	{
+		alert(id)
+		if(confirm('삭제하시겠습니까?'))
+			{
+				location.href = 'deletePerson?idnum='+id;
+			}
+	}
+	
+	function updatePerson(id)
+	{
+		alert(id)
+		if(confirm('수정하시겠습니까?'))
+			{
+				location.href = 'updatePerson?idnum='+id;
+				//updatePerson의 idnum이 무엇인지 = 값 
+			}
+	}
+</script>
+</head>
+<body>
+	<h1>[ 회원 목록 ]</h1>
+<!-- 	
+	<p th:text="${person}"></p>
+
+	<p th:if="${person == null}"> 검색결과가 없습니다 </p>
+	
+	<p th:if="${person != null}" th:text="${person.name}"></p>
+	<p th:if="${person != null}" th:text="${person.age}"></p>  -->
+	
+	<table>
+		<tr>
+			<th>주민등록번호</th>
+			<th>이름</th>
+			<th>나이</th>
+			<th>삭제</th>
+		</tr>
+		<tr th:each="p : ${list}">
+			<td th:text="${p.idnum}"></td>
+			<td th:text="${p.name}"></td>
+			<td th:text="${p.age}"></td>
+			<td>
+				<input type="button" value="삭제" th:id="${p.idnum}" th:idnum="${p.idnum}" th:onclick="deletePerson(this.getAttribute('idnum'))">
+				<!-- 삭제버튼을 누르면 deletePerson의 함수를 호출해서 idnum의 값을 가져옴 .  -->
+				<a th:href="|javascript:deletePerson('${p.idnum}')|">삭제</a>
+			</td>
+			<td>
+				<input type="button" value="수정" th:id="${p.idnum}" th:idnum="${p.idnum}" th:onclick="updatePerson(this.getAttribute('idnum'))">
+				<a th:href="|javascript:updatePerson('${p.idnum}')|">수정</a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

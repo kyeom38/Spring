@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf2</title>
+<style>
+	table,td
+	{
+	border:1px solid black;
+	}
+	</style>
+</head>
+<body>
+<h1>[ Thymeleaf2 ]</h1>
+
+<h2>* 반복문</h2>
+[[${slist}]]
+<br>
+[[${map}]]
+<br>
+
+<div th:each="item:${slist}"> <!-- for each -->
+	<p th:text="${item}"></p>
+</div>
+<br>
+
+<table th:each="item:${slist}">
+	<tr>
+		<td><p th:text="${item}"></p></td>
+	</tr>	
+</table>
+
+<table>
+	<tr th:each="item,i:${slist}">
+		<td>
+			<p th:text="${i.index}"></p>
+			<p th:text="${item}"></p>
+		</td>
+	</tr>	
+</table>
+
+<table>
+	<tr th:each="item :${map}">
+		<td>
+			<p th:text="${item.key}"></p>
+			<p th:text="${item.value}"></p>
+		</td>
+	</tr>
+</table>
+
+<h2>* 소스에 남지않는 th:block 활용 반복문</h2>
+<th:block th:each="n,status : ${#numbers.sequence(1,5,1)}"> 
+<!-- n : 실제 배열안에 들어있는 내용 / status :인덱스 정보를 알려주는 기능을 가진 변수(변수이름 무작위) -->
+<p>숫자 
+	<span th:text="${status.index}"></span>,<!-- 해당 숫자의 인덱스 -->
+	<span th:text="${status.count}"></span>,<!-- 몇번째 회전인지 ?ㅋ -->
+	<span th:text="${status.size}"></span>,<!-- 배열의 크기 -->
+	<span th:text="${status.even}"></span>,<!-- 짝수인지 -->
+	<span th:text="${status.odd}"></span>,<!-- 홀수인지 -->
+	<span th:text="${status.first}"></span>,<!-- 첫번째 숫자인지 -->
+	<span th:text="${status.last}"></span>,<!-- 마지막 숫자인지 -->
+	<span th:text="${n}">1</span></p>,
+</th:block>
+
+
+<h2>10+20+30+40+50=?요론 문자열 출력하도록 반복문 작성 </h2>
+<th:block th:each="num,number : ${#numbers.sequence(10,50,10)}">
+	<span th:text="${num}">0</span>
+	<span th:if="${num<50}">+</span>
+	<span th:if="${number.last}">= ?</span>
+</th:block>
+</body>
+</html>

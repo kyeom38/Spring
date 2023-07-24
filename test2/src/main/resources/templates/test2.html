@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>[ Test2 ]</h1>
+	<h2 th:if="${session.loginId!=null}"><span th:text="${session.loginName}">0000</span>님 환영합니다 !</h2>
+	
+ 	<li th:if="${session.loginId==null}"><a href="test2/login"> 로그인 </a></li>
+	<li th:if="${session.loginId!=null}"><a href="test2/logout"> 로그아웃 </a></li>
+	
+	<p><a herf="test/l쿠키 확인 <p>
+</body>
+</html>

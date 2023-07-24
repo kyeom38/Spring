@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+$(document).ready(function()
+{
+	$('#bt1').click(test1);
+	$('#bt2').click(test1);
+	$('#bt3').click(test1);
+	$('#bt4').click(test1);
+});
+
+function test1()
+{
+	let a = [10,20];
+	let b = [];
+	let c = new Array();
+	let d = new Array(5);
+	
+	console.log(a);
+	console.log(a[0]);
+	console.log(b);
+	console.log(b[0]);
+	console.log(a.length);
+	console.log(d);
+	console.log('-------------------');
+	
+	a[0] = 100;
+	console.log(a);
+	
+	a.push(99);
+	console.log(a);
+	
+	let x = a.pop()
+	console.log(x,a);
+	
+	a = [1,2,3,4,5,6,7]
+	
+	a.splice(2,3);//삭제기능 (index,몇개)
+	console.log(a);
+	
+	a.shift();
+	console.log(a);
+	a.unshift(1); //배열 맨앞에 값을 추가함
+	console.log(a);
+	a.reverse();
+	console.log(a);
+	
+	for (i=0;i>a.length; i++)
+	{
+		console.log(a[i]);
+	}	
+}
+
+function test2()
+{
+	let ar = [1,3,5,7,9];	
+	
+	$.each(ar,function(i,n)
+	{
+	 	console.log(n);
+	})	
+};
+
+function test3()
+{
+	let ar = [1,3,5,7,9];
+	
+	$(ar).each(function(i, n)
+	{
+		console.log(n);
+	});
+}
+
+function test4()
+{
+	let ar = [ 	{num:10, id:'aaa', title:'제목1'}, 
+				{num:11, id:'bbb', title:'제목2'},
+				{num:13, id:'ccc', title:'제목3'}
+			];
+	$(ar).each(function(i, ob)
+	{
+		console.log(i, ob.num, ob.id, ob.title);
+	});
+	
+	alert(ar);
+	alert(JSON.stringfy(ar)); //문자열로 출력하는 함수...?중요
+	alert(ar[0].title);
+}
+
+
+
+</script>
+
+</head>
+<body>
+	<h1>[ 배열과 each() ]</h1>
+	
+	<p><input type="button" id="bt1" value="배열의 사용"></p>
+	<p><input type="button" id="bt2" value="each()1"></p>
+	<p><input type="button" id="bt3" value="each()2"></p>
+	<p><input type="button" id="bt4" value="객체 배열"></p>
+</body>
+</html>

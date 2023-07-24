@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>수정</title>
+</head>
+<body>
+<h1>[ 정보 수정 ]</h1>
+<!-- 일반 수정 폼 : 홈에서 수정을 눌렀을때 수정 후 다시 홈으로 되돌아감   -->
+<form th:if="${idnum == null}" action="update" method="post">
+	<p>수정하고 싶은 사람의 주민번호를 입력하십시오</p>
+	<input type="text" name="idnum"><br>
+	이름 수정 <input type="text" name="name">
+	나이 수정 <input type="text" name="age">
+	<input type="submit" value="수정완료">
+</form>	
+<!-- 회원 목록에서 수정을 눌렀을때 수정 후 회원 목록으로 되돌아감 -->
+<form th:if="${idnum != null}" action="update"  method="post">
+	<p>수정 원하시는 내용을 입력하십시오 </p>
+	<input type="hidden" name="idnum" th:value="${idnum}">
+	이름 수정 <input type="text" name="name">
+	나이 수정 <input type="text" name="age">
+	<input type="submit" value="수정완료">
+</form>
+</body>
+</html>

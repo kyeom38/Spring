@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<script>
+function check()
+{
+	let id = document.getElementById('memberid');
+	
+	if(id.length<5)
+		{
+		alert('ID를 최소 5자 이상 입력해주세요!');
+		}
+	return true;
+}
+function pwcheck()
+{
+	let pw = document.getElementById('memberpw');
+	let pw2 = document.getElementById('memberpw2');
+	
+	if(pw.value!=pw2.value)
+		{
+		document.getElementById('err').innerHTML="비밀번호가 일치하지 않습니다. "
+		//innerHTML = " 써져있는 글이 나옴 "
+		}
+	else 
+		{
+		document.getElementById('err').innerHTML="비밀번호가 일치합니다. "
+		}
+	return true;	
+}
+function idFormOpen()
+{
+	window.open('idcheck','idwin','width=500,height=600');
+	//상대경로, 주소이름, 사이즈
+}
+</script>
+</head>
+<body>
+	<h1> [😎 회원가입 😎]</h1>
+<form th:action="@{/member/join}" method="post" onsubmit="return check()">
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<td><input type="text" name="memberid" id="memberid" readonly="memberid" placeholder="5글자 이상 "required></td>
+			<td><input type="button" value="ID 중복확인" onclick="idFormOpen()" ></td>
+		</tr>
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" name="memberpw" id="memberpw" placeholder="비밀번호 입력" required onblur="pwcheck()"><br>
+				<input type="password" id="memberpw2j" placeholder="비밀번호 확인" required onblur="pwcheck()">
+				<!-- oncheck는 실시간으로 비밀번호확인이 가능 onblur는 해당 칸을 떠나야 확인이 가능. -->
+				 <span id="err"></span>
+				</td>	<!-- 서버로는 하나만 보낼거라 name이 없음 -->
+		</tr>	
+		<tr>
+			<td>이름</td>
+			<td><input type="text" name="membername" id="membername" placeholder="ex)홍길동"  ></td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td><input type="text" name="email" id="email" placeholder="ex)abc@nbr.com" ></td>
+		</tr>
+		<tr>
+			<td>전화번호</td>
+			<td><input type="text" name="phone" id="phone" placeholder="ex)010-0000-0000형식" ></td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td><input type="text" name="address" id="address"  placeholder="ex)서울시 강남구" ></td>
+		</tr>
+		<tr>
+			<td colspan="2">	
+			<input type="submit" value ="가입">
+			<input type="reset" value ="다시 쓰기">
+			</td>
+		</tr>
+	</table>
+	
+</form>
+</body>
+</html>

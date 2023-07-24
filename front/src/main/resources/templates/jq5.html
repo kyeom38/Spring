@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+
+<script>
+$(document).ready(function()
+{
+	//show, hide, toggle(보였다 감췄다),slideDown(위에서부터 펼쳐지듯 보였다감췃다),slideUp,fadeIn,fadeOut
+	$('#bt1').click(function()
+	{
+		$('#textDiv').show('slow'); 
+		
+	});
+	
+	$('#bt2').click(function()
+	{
+		$('#textDiv').hide('slow'); 
+				
+	});
+	
+	$('#bt3').click(function(){
+		$('#textDiv').toggle('slow');
+	});
+	
+	$('#bt4').click(function(){
+		$('#textDiv').slideDown('slow');
+	});
+	
+	$('#bt5').click(function(){
+		$('#textDiv').slideUp('slow');
+	});
+	
+	$('#bt6').click(function(){
+		$('#textDiv').fadeIn('slow');
+	});
+	
+	$('#bt7').click(function(){
+		$('#textDiv').fadeOut(1000);
+	});
+
+});
+</script>
+
+</head>
+<body>
+	<h1>[ 애니메이션 효과 ]</h1>
+	<p><input type="button" id="bt1" value="show"></p>
+	<p><input type="button" id="bt2" value="hide"></p>
+	<p><input type="button" id="bt3" value="toggle"></p>
+	<p><input type="button" id="bt4" value="slideDown"></p>
+	<p><input type="button" id="bt5" value="slideUp"></p>
+	<p><input type="button" id="bt6" value="fadeIn"></p>
+	<p><input type="button" id="bt7" value="fadeOut"></p>
+	
+	
+	<div id="textDiv">
+		<p>DIV태그 내의 문자열 </p>
+		<p>DIV태그 내의 문자열 </p>
+		<p>DIV태그 내의 문자열 </p>
+		<p>DIV태그 내의 문자열 </p>
+		<p>DIV태그 내의 문자열 </p>
+		<p>DIV태그 내의 문자열 </p>
+		<p>DIV태그 내의 문자열 </p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>게시글 읽기</title>
+<script>
+function deleteBoard(n)
+{
+	if(confirm('삭제하시겠습니까?'))
+		{
+			location.href='delete?boardnum='+n;
+		}
+}
+
+function validation()
+{
+	if (document.getElementById('replytext').value.length<5)
+	{
+		alert('내용을 5자 이상 입력하세요.');
+		return false;
+	}
+	return true;
+}
+
+function deleteReply(n, b)
+{
+	if(confirm('삭제하시겠습니까?'))
+		{
+			location.href='deleteReply?reply='+n+'&boardnum='+b;
+			
+			//?이전은 주소값.뒤는 속성을 넘겨줌 . &=and 의 의미 
+		}
+}
+
+function updateReply(n,b)
+{
+	
+}
+</script>
+</head>
+<body>
+	<h1> [ 게시글 읽기 ]</h1>
+	<table>
+		<tr>
+			<td>글번호</td>
+			<td th:text="${b.boardnum}"></td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td th:text="${b.memberid}"></td>
+		</tr>	
+		<tr>
+			<td>작성일</td>
+			<td th:text="${b.inputdate}"></td>
+		</tr>
+		<tr>
+			<td>조회수</td>
+			<td th:text="${b.hits}"></td>
+		</tr>
+		<tr>	
+			<td>제목</td>
+			<td th:text="${b.title}"></td>
+		</tr>
+		<tr>	
+			<td>내용</td>
+			<td th:text="${b.contents}"></td>
+		</tr>
+		<tr>
+			<td>파일 첨부</td>
+			<td><a th:href="@{/board/download(boardnum=${b.boardnum})}" th:text="${b.originalfile}"></a></td>
+		</tr>
+		
+	</table>
+	<br>
+
+
+	<!-- <img th:src = "@{/board/download(boardnum=${b.boardnum})}"> -->
+	<div th:if="${#authentication.name}==${b.memberid}"> <!-- authentication : 로그인한 정보 -->
+		<a th:href="@{/board/update(boardnum=${b.boardnum})}"> 수정</a>
+		<a th:href="|javascript:deleteBoard(${b.boardnum})|"> 삭제 </a>
+	</div>
+		<a th:href="@{/board/board}">목록</a>
+	<br>
+	
+	<!-- 리플 작성 폼 -->
+	<!-- 자성한 글 내용,글번호를 서버로 전송하여 DB에 저장 -->
+	<form th:action="@{/board/writeReply}" method="post" onsubmit="return validation()">
+	리플 내용 <input type="text" name="replytext" id="replytext">
+		   <input type="hidden" name="boardnum" th:value="${b.boardnum}"> 
+		   <input type="submit" value="저장" >
+	</form>
+	
+	<!-- 리플 목록 -->
+	<table>
+		<th:block th:each="r, n:${reply}"> <!-- n: for 문에서의 int i  역할 -->
+		<tr>
+			<td th:text="${n.count}"></td>	<!-- n.count 는 1부터 n.index 는 0부터 시작 -->		
+			<td th:text="${r.memberid}"></td>
+			<td id="aa" th:text="${r.replytext}">
+				<form th:action="@{/board/updateReply}" method="post" id="updateReplyForm">
+				      <input type="hidden" value="" name="boardnum" id="boardnumUpdate">
+				      <input type="hidden" value="" name="replynum" id="replynumUpdate">
+				      <input type="text" value="" name="replytext" id="replytextUpdate" th:text="${r.replytext}">
+				</form>
+			</td>
+			<td th:text="${r.inputdate}"></td>
+			<td><a th:href="|javascript:deleteReply(${r.reply}, ${b.boardnum})|"> 삭제 </a></td>
+			<td><a th:href="|javascript:updateReply(${r.reply}, ${b.boardnum})|"> 수정 </td>
+		</tr>
+		</th:block>
+	</table>
+</body>
+</html>

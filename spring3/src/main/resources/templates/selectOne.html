@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>spring3</title>
+</head>
+<body>
+	<h1>[ 1 명 조회 ]</h1>
+	
+	<p th:text="${person}"></p>
+
+	<p th:if="${person == null}"> 검색결과가 없습니다 </p>
+	
+	<div th:if="${person != null}">
+		<p th:text="${person.name}"></p>
+		<p th:text="${person.age}"></p>
+	</div>
+	
+</body>
+</html>

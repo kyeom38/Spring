@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>브라우저 객체 모델</title>
+    <script>
+        let w = null;
+        function testWindow()
+        {
+             //새 창 열기 (보여줄 경로, 창 이름, 창 모양과 위치)
+            let a = screen.width/2;
+            let b = screen.height/2;
+            let c = screen.width/4;
+            let d = screen.height/4;
+            w=window.open('html1.html','newwin','width ='+a+',height='+b+',left='+c+',top='+d+',resizable=no'); 
+            //2번째이름 이름이 같은 창은 두개이상 나올 수 없음 . 이름이 같으면 같은주소의(?)창이 바뀌기 때문
+        }
+        function testClose()
+        {
+            if(w != null&& w.closed == false)
+            {
+            w.closed();
+            }
+        } 
+        function testMove()
+        {
+            if (w != null && w.closed == false)
+            {            
+                w.moveBy(10,0);
+                w.focus();
+            }
+        }
+        function testScreen()
+        {
+            console.log(screen.width,screen.height);
+        }
+
+        function testLocation()
+        {
+            alert(location.herf); // 현재경로
+            location.herf = 'http://www.google.com/';
+            location.reload();
+        }
+
+        function testHistory()
+        {
+            history.go(-1);
+        }
+
+        function testNavigator()
+        {
+            alert(navigator.userAgent); //이 웹브라우저가 내부에 어떤 도구(?)를 사용하는지 ?... 
+        }
+
+        function testDocument()
+        {
+            document.write('<h1>출력내용</h1>') //현재페이지에서 출력내용을 새로 보여줌 .새로고침하면 다시 이전 화면으로 보여줌  
+        }
+
+        function testDocument2()
+        {
+            let win = window.open('','win','width:400,height=400,left=500,top=200')
+            //win.document.write('aaa')
+            let html = '<html><head><title>새 창 열기 </title></head>\
+            <body>\
+            <p><img src="image/pen.png"></p>\
+            <p>안녕하세요<\p>\
+            </body></html>'
+            
+            win.document.write(html);
+        }
+
+        function testDocument3()
+        {
+            let win = window.open('','w','width:400,height=400,left=500,top=200')
+            //win.document.write('aaa')
+            let name = '홍길동';
+            let num = 10;
+
+            let html = `이름은 ${name}이고, 나이는 ${num+1}입니다`
+            
+            win.document.write(html);
+        }
+    </script>
+</head>
+<body>
+    <h1>[ 브라우저 객체 모델 ]</h1>
+    <p><a href = "javascript:testWindow()"> window 객체</a></p>
+    <p><a href = "javascript:testClose()"> window 닫기</a></p>
+    <p><a href = "javascript:testMove()"> window 이동</a></p>
+    <p><a href = "javascript:testScreen()"> screen 객체</a></p>
+    <p><a href = "javascript:testLocation()"> location 객체</a></p>
+    <p><a href = "javascript:testHistory()"> history 객체</a></p>
+    <p><a href = "javascript:testNavigator()"> navigator 객체</a></p>
+    <p><a href = "javascript:testDocument()"> document 객체</a></p>
+    <p><a href = "javascript:testDocument2()"> document2 객체</a></p>
+    <p><a href = "javascript:testDocument3()"> document3 객체</a></p>
+</body>
+</html>

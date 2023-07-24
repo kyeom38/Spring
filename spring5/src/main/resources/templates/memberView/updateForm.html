@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>개인 정보 수정</title>
+<script>
+</script>
+</head>
+<body>
+	<h1> [😎 개인 정보 수정 😎]</h1>
+<form th:action="@{/member/update}" method="post" >
+	<table border="1">
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" name="memberpw" id="memberpw" placeholder="비밀번호 입력" onblur="pwcheck()"><br>
+				<input type="password" id="memberpw2" placeholder="비밀번호 확인" onblur="pwcheck()">
+			</td>	
+		</tr>	
+			<td>이름</td>
+			<td><input type="text" name="membername" id="membername" placeholder="ex)홍길동"  ></td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td><input type="text" name="email" id="email" placeholder="ex)abc@nbr.com" ></td>
+		</tr>
+		<tr>
+			<td>전화번호</td>
+			<td><input type="text" name="phone" id="phone" placeholder="ex)010-0000-0000형식" ></td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td><input type="text" name="address" id="address"  placeholder="ex)서울시 강남구" ></td>
+		</tr>
+		<tr>
+			<td colspan="2">	
+			<input type="submit" value ="수정">
+			<input type="reset" value ="다시 쓰기">
+			</td>
+		</tr>
+	</table>
+	
+</form>
+</body>
+</html>

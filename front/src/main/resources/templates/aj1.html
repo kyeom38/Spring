@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+function test1()
+{
+	alert('test1 실행');	
+	$.ajax({
+		url:'test1',
+		type:'get',
+		success : function(){
+			alert('success')
+		},
+		error: function(){
+			alert('error')
+		}
+	});
+	alert('test1 종료');
+}
+
+function test2()
+{
+	$.ajax({
+		url:'test2',
+		type:'post',
+		data:{str:'클라이언트에서 보냄'},
+		success:function(){alert('success');},
+		error:function(){alert('error');}
+	});
+}
+
+function test3()
+{
+	$.ajax({
+		url:'test3',
+		type:'get',
+		dataType:'text',
+		success:function(s)
+		{
+			//alert('s');
+			$('#output').html(s);
+		},
+		error:function(){alert('error');}
+	});
+}
+
+function test4()
+{
+	let string1 = $('#string1').val(); //val :input태그일 경우 html: attr:속성값
+	$.ajax({
+		url:'test4',
+		type:'post',
+		data: {str:string1},//컨트롤러로 보낼 것 
+		dataType:'text', //컨트롤에서 받을 것 
+		success:function(s)
+		{
+			//alert('s');
+			$('#string2').html(s);
+		},
+		error:function(e)
+		{
+			alert(JSON.stringify(e));
+		}
+	});
+}
+</script>
+</head>
+<body>
+	<h1>[ Ajax요청과 응답 ]</h1>
+	
+	<p><a href="javascript:test1()">서버로 Ajax 요청보내기 </a>
+	<p><a href="javascript:test2()">서버로 문자열 보내기 </a>
+	<p><a href="javascript:test3()">서버에서 문자열 가져오기 </a>
+	<div id="output1"></div>
+	
+	<p><a href="javascript:test4()">문자열 변경</a></p>
+	<p><input type="text" id="string1"></p>
+	<p id="string2"></p>
+</body>
+</html>

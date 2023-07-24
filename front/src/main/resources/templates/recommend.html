@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>추천</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+$(document).ready(function()
+{
+	$('bt').click(function()
+	{
+		$.ajax({
+			url:'practice2',
+			method:'post',
+			data:{boardnum:$(this).attr('boardnum')},
+			success:function(n)
+			{
+				$('#cnt').html(n);
+			},
+			error:function()
+			{
+				alert('error')
+			}
+		});
+	});	
+});
+
+</script>
+</head>
+<body>
+	<h1>[ 게시글 추천 ]</h1>
+	<input type="button" value="추천" id="bt" boardnum><div id="output"></div>
+</body>
+</html>

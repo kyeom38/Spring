@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+$(document).ready(function()
+{
+	$('#bt1').click(function()
+	{
+		let s = $('h3').html();
+		//alert(s);
+		
+		$('h3').each(function(i,tag)
+		{
+			alert(tag);	
+		});
+	});
+	
+	$('#bt2').click(function()
+	{
+		let s = $('h3').html();
+		alert(s);
+	});
+	
+	$('#bt3').click(function()
+	{
+		let s = $('#text1').val();
+		alert(s);
+	});
+	
+	$('#bt4').click(function()
+	{
+		$('#div1').html('<p style="color:red;">수정한 내용</p>');
+		$('#div2').html('<p style="color:red;">수정한 내용</p>');
+		$('#text2').val('수정한 내용');
+	});
+	
+	
+	$('#bt5').click(function()
+	{
+		let s = $('#img1').attr('src');//속성을 하나만 넣을경우 읽어오는기능만
+		alert(s);
+		$('#img1').attr('src','../img/사진2.jpg');//수정기능 '[[@{/img/사진2.png}]]'같이 타임리프로도 가능 
+	});
+	
+	$('#bt6').click(function()
+	{
+		$('#img1').css('width',100);
+		$('#img1').css('height',100);
+		$('#img1').css('border','2px solid red');
+	});
+});
+</script>
+
+</head>
+<body>
+	<h1>[ 문서 객체 조작 함수 ]</h1>
+	
+	<p><input type="button" id="bt1" value="html()함수"></p>
+	<p><input type="button" id="bt2" value="text()함수"></p>
+	<p><input type="button" id="bt3" value="val()함수"></p>
+	
+		<h3><b>h3</b>태그를 사용한 문자열 1</h3>
+		<h3><b>h3</b>태그를 사용한 문자열 2</h3>
+		<p><input type="text" id="text1"></p>
+	
+	<p><input type="button" id="bt4" value="값 변경"></p>
+	
+		<div id="div1">aaaa</div>
+		<div id="div2">bbbb</div>
+		<p><input type="text" id="text2" value="input의 기본값"></p>
+		<p><textarea id="text3">textarea의 기본값</textarea>
+		
+	<p><input type="button" id="bt5" value="attr() 함수"></p>
+	<p><input type="button" id="bt6" value="css() 함수"></p>
+		<p><img th:src="@{/img/사진1.jpg}" id="img1"></p>
+</body>
+</html>

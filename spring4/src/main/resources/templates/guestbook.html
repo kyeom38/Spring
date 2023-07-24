@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>방명록 홈 </title>
+</head>
+<body>
+	<h1> [ 방명록 ]</h1>
+		<p sec:authorize = "isAuthenticated()"><!-- 로그인을 안했을땐 보통익명으로 나타나는데 안보이게하는것 -->
+		<span th:text="${#authentication.name}"></span> 님 로그인 중
+	</p>
+	
+	<p><p sec:authorize = "!isAuthenticated()"><a th:href="@{/member/logout}"><a th:href="@{/member/join}">회원가입</a></p>
+	<p sec:authorize = "!isAuthenticated()"><a th:href="@{/member/loginForm}">로그인</a></p>
+	<p sec:authorize = "isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></p>
+	
+	<h3>  <a href="writeGB" >  방명록 작성 </a></h3>
+	<h3> <p sec:authorize = "!isAuthenticated()"><a href="readGB" > 방명록 열람(비회원용) </a></h3>
+	<h3> <p sec:authorize = "isAuthenticated()"><a href="readGB2"> 방명록 열람(회원용) </a></h3>
+	<h3> <p sec:authorize = "isAuthenticated()"><a href="reviseGB"> 방명록 수정 </a></h3>
+</body>
+</html>

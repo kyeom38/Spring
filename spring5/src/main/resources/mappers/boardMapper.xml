@@ -1,0 +1,80 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="net.softsociety.spring5.dao.BoardDAO">
+<!-- 글쓰기 && 게시글 저장 -->
+<insert id="write" parameterType ="Board">
+	insert into spring5_board(boardnum, title, memberid, contents<if test="originalfile!=null and savedfile!=null">,originalfile,savedfile</if>)
+ 				  values (spring5_board_seq.nextval,#{title},#{memberid},#{contents}<if test="originalfile!=null and savedfile!=null">,#{originalfile},#{savedfile}</if>)
+</insert>
+
+<!-- 게시판 목록 -->
+<select id="blist" resultType="Board" parameterType="Hashmap">
+	select boardnum, title, memberid, hits, to_char(inputdate,'YYYY-MM-DD')inputdate from spring5_board 
+	<where>
+		<if test="type=='title'"> upper(title) like upper('%'|| #{searchWord} || '%') </if>
+		<if test="type=='contents'"> upper(contents) like upper('%'|| #{searchWord} || '%')</if>
+		<if test="type=='memberid'"> memberid like #{searchWord}</if>
+		<if test="type=='all'">upper(title) like upper('%'|| #{searchWord} || '%') or
+							   upper(contents) like upper('%'|| #{searchWord} || '%') or
+							   memberid like #{searchWord}</if>
+	</where> order by boardnum desc
+</select>
+
+<!-- 게시물 읽기 -->
+<select id="read" resultType="Board" parameterType="int" >
+	select * from spring5_board where boardnum = #{boardnum} <!-- <if test="type=='_parameter ==1'">단일 데이터 (파라미터타입이 객체가 아닌것)일 경우 데이터가 하나일 경우를 적고싶을때 -->
+</select>
+
+<!-- 조회수 증가 -->
+<update id="uphits" parameterType="int">
+	update spring5_board set hits = hits+1 where boardnum=#{boardnum}
+</update>
+
+<!-- 글 삭제 -->
+<delete id="delete" parameterType="Board">
+	delete from spring5_board where boardnum=#{boardnum} and memberid = #{memberid}
+</delete>
+
+<!-- 글 수정  -->
+<update id="update" parameterType="Board">
+	update spring5_board set title=#{title} , contents=#{contents} 
+	<if test="originalfile!=null and savedfile!=null">,originalfile =#{originalfile},savedfile=#{savedfile}</if> 
+	where boardnum=#{boardnum} and memberid=#{memberid}
+</update>
+
+<!-- 전체 글 개수 -->
+<select id = "getTotal" parameterType="hashmap" resultType="int">
+	select count(*) from spring5_board 
+	<where>
+		<if test="type=='title'"> upper(title) like upper('%'|| #{searchWord} || '%') </if>
+		<if test="type=='contents'"> upper(contents) like upper('%'|| #{searchWord} || '%')</if>
+		<if test="type=='memberid'"> memberid like #{searchWord}</if>
+		<if test="type=='all'">upper(title) like upper('%'|| #{searchWord} || '%') or
+							   upper(contents) like upper('%'|| #{searchWord} || '%') or
+							   memberid like #{searchWord}</if>
+	</where>
+</select>
+
+<!-- 리플 저장 -->
+<insert id="writeReply" parameterType ="Reply">
+	insert into spring5_reply(reply, boardnum, memberid, replytext)
+ 				  values (spring5_reply_seq.nextval,#{boardnum},#{memberid},#{replytext})
+</insert>
+
+<!-- 리플 목록 -->
+<select id="rlist" resultType="Reply" parameterType="int">
+	select reply, memberid, replytext, inputdate from spring5_reply where boardnum=#{boardnum}
+</select>
+
+<!-- 댓글 한개 가져오기 -->
+<select id="reply1" resultType="Reply">
+	select * from spring5_reply where reply =#{reply}	
+</select>
+<!-- 리플 삭제 -->
+<delete id="deleteReply" parameterType="Reply">
+	delete from spring5_reply where memberid=#{memberid} and reply=#{reply}
+</delete>
+</mapper>
+

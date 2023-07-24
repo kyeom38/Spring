@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:src="@{/js/jquery-3.7.0.js}"></script>
+<script>
+$(document).ready(function()
+		{
+			$('#formBt1').click(formSubmit1);
+			$('#formBt2').click(formSubmit2);
+			$('#formBt3').click(formSubmit3);
+			$('#bt1').click(getObject1);
+		    $('#bt2').click(getObject2);
+		    $('#bt3').click(getObject3);
+		    $('#bt4').click(sendArray);
+		    $('#bt5').click(sendObjectArray);
+
+		});
+function formSubmit1()
+{
+	//입력값 이름, 나이, 전화번호를 읽어옫다. 
+	let n = $('#name1').val();
+	let a = $('#age1').val();
+	let p = $('#phone1').val();
+	
+	//유효성 검사
+	if(n.length<2)
+	{
+		alert('이름을 입력하세요.');
+		return;
+	}
+
+	//서버로 전송->저장->돌아와서"저장완료"메세지 
+	$.ajax({
+		url:'insert1',
+		type:'post',
+		data:{name:n,age:a,phone:p},
+		success: function()
+		{
+			$('#name1').val('');
+			$('#age1').val('0');
+			$('#phone1').val('');
+			alert('저장되었습니다');
+		}
+	});
+}
+
+function formSubmit2()
+{
+	//입력값 이름, 나이, 전화번호를 읽어옫다. 
+	let n = $('#name2').val();
+	let a = $('#age2').val();
+	let p = $('#phone2').val();
+	
+	//유효성 검사
+	if(n.length<2)
+	{
+		alert('이름을 입력하세요.');
+		return;
+	}
+
+	//서버로 전송->저장->돌아와서"저장완료"메세지 
+	$.ajax({
+		url:'insert2',
+		type:'post',
+		data:{name:n ,age:a,phone:p},
+		success: function(){
+			$('#name2').val('');
+			$('#age2').val('0');
+			$('#phone2').val('');
+			alert('저장되었습니다');
+		}
+	})
+}
+
+function formSubmit3()
+{
+	//서버로 전송->저장->돌아와서"저장완료"메세지 
+	$.ajax({
+		url:'insert3',
+		type:'post',
+		data:$('#writeForm3').serialize(), //꼭 기억하기 。객체에 담을 값을 가져옴 
+		success: function(){
+			$('#name3').val('');
+			$('#age3').val('0');
+			$('#phone3').val('');
+			alert('저장되었습니다');
+		}
+	})
+}
+
+function getObject1() 
+{
+    $.ajax({
+       url : 'getObject1'
+       , type : 'get'
+       , dataType : 'text' //String 타입으로 내기 떄문에 이름/나이/전화번호를 나눠서 추출할 수 없음 (정의된 toString 그대로 가져옴)
+       , success : function (ob) {
+          $('#output1').html(ob);
+       }
+    });
+    
+ }
+ 
+function getObject2()
+{
+	$.ajax({
+		url:'getObject2',
+		type: 'get',
+		dataType: 'json', //객체로 가져오기 때문에 값을 나눠서 추출할수 있음 
+		success: function (ob){ 
+			
+			let s =`
+				<p>이름 : ${ob.name}</p>
+				<p>나이 : ${ob.age}</p>
+				<p>전화 : ${ob.phone}</p>
+				`
+			$('#output2').html(s);
+		},
+		error: function(){
+			alert('error');
+		}
+	});
+}
+
+function getObject3(){
+    $.ajax({
+        url: 'getObject3',
+        type: 'get',
+        dataType: 'json',
+        success: function (list){
+            let html = '<table border=1><tr><th>이름</th><th>나이</th><th>전화</th></tr>';
+
+            list.forEach(function(ob) {
+                html += `<tr>
+                			<td>${ob.name}</td>
+                			<td>${ob.age}</td>
+                			<td>${ob.phone}</td>
+                		</tr>`;
+            });
+
+            html += '</table>';
+            $('#output3').html(html);
+        },
+        error: function(){
+            alert('error');
+        }
+    });
+}
+
+function sendArray(){
+	
+	var ar = ['aaa','bbb','ccc'];
+	$.ajax({
+		url:'sendArray',
+		type: 'post',
+		traditional: true,
+		data: {ar: ar},
+		success: function(){
+			alert('저장되었습니다.');
+		}
+	});
+}
+
+function sendObjectArray(){
+	//javaScript의 배열
+	var ar = [{name:'aaa', age:11,phone:'1111'},
+			{name:'bbb', age:22,phone:'2222'}];
+	
+	$.ajax({
+		url: 'sendObjectArray',
+		type:'post',
+		//traditional: true,
+		data: {ar : JSON.stringify(ar)},
+		success: function(){
+			alert('저장되었습니다.');
+		},
+		error: function(e){
+			alert(JSON.stringify(e));
+		}
+	});
+}
+
+
+</script>
+</head>
+<body>
+	<h1>[ 객체 보내기 / 받기 ]</h1>
+	
+	<p> 1. 서버로 각각의 Prameter를 전달 </p>
+	<form id = "writeForm1">
+	이름 <input type="text" id="name1"><br>
+	나이 <input type="number" id="age1" value="0"><br>
+	전화 <input type="text" id="phone1"><br>
+		<input type="button" id="formBt1" value="저장">
+	</form>
+	
+	<p> 2. VO객체로 전달 </p>
+	<form id = "writeForm2">
+	이름 <input type="text" id="name2"><br>
+	나이 <input type="number" id="age2" value="0"><br>
+	전화 <input type="text" id="phone2"><br>
+		<input type="button" id="formBt2" value="저장">
+	</form>
+	
+	<p> 3. VO객체로 전달 </p>
+	<form id = "writeForm3">
+	이름 <input type="text" id="name3" name="name"><br>
+	
+	나이 <input type="number" id="age3" value="0" name="age"><br>
+	전화 <input type="text" id="phone3" name="phone"><br>
+		<input type="button" id="formBt3" value="저장">
+	</form>
+	
+      <p>4. 서버에서 객체의 값을 String으로 받기</p>
+      <p><input type="button" id="bt1" value="서버에서 객체 받기"></p>
+      <div id="output1"></div>
+      
+      <p>5. 서버에서 객체의 값을 Jason으로 받기</p>
+      <p><input type="button" id="bt2" value="서버에서 객체 받기"></p>
+      <div id="output2"></div>
+      
+      <p>6. 서버에서 리스트 받기</p>
+      <p><input type="button" id="bt3" value="서버에서 리스트 받기"></p>
+      <div id="output3"></div>
+      
+      <p>7. 서버로 배열 보내기</p>
+      <p><input type="button" id="bt4" value="서버로 배열보내기"></p>
+    
+      <p>8. 서버에서 객체 배열 보내기 </p>
+	  <p><input type="button" id="bt5" value="서버로 배열 보내기">
+
+</body>
+</html>

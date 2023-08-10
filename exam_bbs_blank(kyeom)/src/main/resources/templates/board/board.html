@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<script th:src="@{/js/jquery-3.6.0.js}"></script>
+<title>게시판</title>
+<script>
+$(document).ready(function()
+		{
+			//검색 필터 
+		    $('#filter').change(function() 
+		    {
+		        let f = $(filter).val();
+		        $.ajax({
+		            url:'search',
+		            method:'post',
+		            data:{filter : f}, //filter : 컨트롤러의 변수명 f : 전달할 값
+		            dataType:'json',
+		            success:function(list)
+		            {
+		                //결과 목록을 적어야함. 값 확인(?)은 xml에서
+		                printList(list);
+		            },
+		            error: function()
+		            {
+					    alert('error');
+				    }
+		        });
+		    });
+		});
+</script>
+</head>
+<body>
+	<h1> [ 게시판 ]</h1>
+	<spam sec:authorize = "isAuthenticated()">
+		<a th:href="@{/board/write}">글쓰기</a> 
+	</span>
+	
+	<h3>카테고리별로 보기</h3>
+	<a th:href="@{/board/select(category='notice')}"> 공지 </a> <a th:href="@{/board/select(category='hobby')}"> 취미 </a> <a th:href="@{/board/select(category='talk')}">잡담</a> 
+	<h3>정렬하기</h3>
+	<a th:href="@{/board/board(hits='hits')}"> 조회순 </a> <a th:href="@{/board/board(recommend='recommend')}"> 추천순 </a> <a <a th:href="@{/board/board}"> 최근글순 </a> 
+	
+	<!-- 글목록 출력 영역 -->
+	<table >
+		<tr>
+			<th>번호</th>
+			<th>카테고리</th>
+			<th style="width:200px;" >제목</th>
+			<th>작성자</th>
+			<th>조회수</th>
+			<th>추천수</th>
+			<th style="width:100px;">작성일</th>
+		</tr>
+		
+		<!-- 기본 순서는 최근글이 위로가도록 정렬. -->		
+		<tr th:each ="b:${list}">
+			<td th:text="${b.boardnum}"></td>
+			<td th:text="${b.category}"></td>
+			<td>
+				<a th:href="@{/board/read(boardnum=${b.boardnum})}" th:text="${b.title}"></a>  
+			</td> 
+			<!--href는 경로만 설정 th붙이면 값까지 넘길 수 있음 // td에 onclick으로 넘기는 방법도 있음.   -->
+			<td th:text="${b.memberid}"></td>
+			<td th:text="${b.hits}"></td>
+			<td th:text="${b.recommend}"></td>
+			<td th:text="${b.inputdate}"></td>
+		</tr>
+	</table>
+	<!-- 검색폼 --><!-- 검색대상을 선택하고 문자열을 입력하고 "검색"버튼을 누르면 글 목록이 조건에 맞는 글들만 필터링 되어 출력  -->
+	<form>
+	<tr>
+		<td>
+			<select name="filter">
+				<option value="title">제목</option>
+				<option value="contents">내용</option>
+				<option value="tnc">제목과 내용</option>
+			</select>
+		</td>
+		<td>
+			<input type="text" id="search" name="text">
+		</td>
+		<td>
+			<input type="button" value="검색">
+		</td>
+	</tr>
+	</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>글쓰기</title>
+<script>
+function check() 
+{
+    let titleInput = document.getElementById('title');
+    let contentsInput = document.getElementById('contents');
+    let t = titleInput.value.trim();
+    let c = contentsInput.value.trim();
+
+    if (t.length < 5) 
+    {
+        alert("제목을 입력하세요.");
+        return false;
+    }
+
+    if (c.length < 5) 
+    {
+        alert("내용을 입력하세요.");
+        return false;
+    }
+}
+</script>
+</head>
+<body>
+<h1>[ 글쓰기 ]</h1>
+<form th:action="@{/board/write}" method="post" onsubmit="return check();">
+	<table>
+		<input type="hidden" name="memberid" th:value="${memberid}">
+		<tr>
+			<td>카테고리</td>
+			<td>
+				<select name="category">
+					<option value="talk">잡담</option>
+					<option value="hobbly">취미</option>
+					<option value="notice">공지</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td><input type="text" name="title" id="title"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td><textarea cols="50" rows="10" name="contents" id="contents"></textarea></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="저장"></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.softsociety.exam.dao.BoardDAO">
+<!-- 게시글 리스트 -->
+<select id="list" resultType="Board">
+	select
+	  *
+	from
+	    bbs_board
+	order by inputdate desc
+    </select>
+<!-- 글검색 --><!-- 카테고리 : 공지/취미/잡담 --><!-- 조회순/추천순/최근글순 --><!-- 제목/내용/제목+내용 -->
+<select id="search" parameterType="Board" resultType="Board">
+    select
+        *
+    from
+        bbs_board
+    where
+        <if test="filter=='title'">and title = 'title'</if>
+        <if test="filter=='contents'">and contents = 'contents'</if>
+        <if test="filter=='tnc'">and title = 'title' and contents = 'contents' </if>
+        <if test="title !=null ">and title like ('%'|| #{title} || '%')</if>
+    order by
+        inputdate desc
+</select>
+<!-- 글쓰기 -->
+<insert id="write" parameterType="Board">
+    insert into bbs_board(boardnum, category, memberid, title, contents)
+    values (market_board_seq.nextval, #{category}, #{memberid}, #{title}, #{contents})
+</insert>
+<!-- 글읽기 -->
+<select id="read" parameterType="int" resultType="Board">
+    select
+        boardnum
+        , memberid
+        , inputdate
+        , title
+        , contents
+        , category
+    from
+        bbs_board
+    where
+        boardnum = #{boardnum}
+    </select>
+<!-- 글수정 -->
+<update id="update" parameterType="Board">
+	update bbs_board set category=#{category},title=#{title} , contents=#{contents}
+	where boardnum=#{boardnum} and memberid=#{memberid}
+</update>
+
+<!-- 글삭제 -->
+<delete id="delete" parameterType="Board">
+    delete from bbs_board
+    where boardnum = #{boardnum} and memberid = #{memberid}
+</delete>
+
+<!-- 조회수 관련-->
+<!-- 조회수 증가 -->
+<update id="uphits" parameterType="int">
+	update 
+		bbs_board 
+	set 
+		hits = hits+1 
+	where 
+		boardnum=#{boardnum}
+</update>
+
+<!-- 추천수 관련 -->
+<!-- 추천 수 1증가 -->
+<update id="updateCnt" parameterType="int">
+ 	update 
+ 		bbs_board 
+ 	set 
+ 		recommend = recommend + 1 
+ 	where 
+ 		boardnum = #{boardnum}
+</update>
+    
+<!-- 개시글 당 추천수 -->
+<select id="boardRec" parameterType="int" resultType="int">
+	select 
+		recommend 
+	from 
+		bbs_board 
+	where 
+		boardnum = #{boardnum}
+</select>
+
+<!-- 리플 관련 -->
+<!-- 리플 달기 -->
+<insert id="insert" parameterType="Reply">
+	insert into bbs_reply values (bbs_reply_seq.nextval, #{memberid}, #{replytext},#{inputdate})
+</insert>
+
+<!-- 리플 가져오기 -->   
+<select id="rlist" resultType="Reply" parameterType="int">
+	select * from bbs_reply
+</select>
+
+<!-- 리플 삭제 -->
+<delete id="deleteReply" parameterType="Reply">
+	delete from bbs_reply where memberid=#{memberid} and replynum=#{replynum}
+</delete>
+</mapper>

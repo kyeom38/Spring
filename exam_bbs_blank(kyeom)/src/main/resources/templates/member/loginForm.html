@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+
+</head>
+<body>
+	<header>
+	<h1>[ 로그인 ]</h1>
+	</header>
+	
+	<section>
+		<form th:action="@{/member/login}" method="post">
+		<table>
+		<tr>
+			<th>ID</th>
+			<td><input type="text" name="memberid" id="id"></td>
+		</tr>
+		<tr>
+			<th>Password</th>
+			<td><input type="password" name="memberpw" id="pw"></td>
+		</tr>
+		<tr>
+			<!-- 로그인버튼 클릭시 시큐리티를 이용하여 로그인 처리하고 메인화면으로 이동. 로그인 실패시 로그인 화면으로 되돌아옴  -->
+			<td></td>
+			<td>
+				<input type="submit" value="Login">
+			</td>
+		</tr>
+		</table>
+		</form>
+	</section>
+</body>
+</html>

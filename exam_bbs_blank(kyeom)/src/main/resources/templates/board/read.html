@@ -101,7 +101,7 @@ $(document).ready(function()
 </head>
 <body>
     <h1>[ 글읽기 ]</h1>
-    <section>
+    <form>
         <table>
         	<tr>
 	            <th>카테고리</th>
@@ -129,9 +129,11 @@ $(document).ready(function()
             </tr>
             <tr>
 	            <th>추천수</th>
-				<td th:text="${list.recommend}"><input type="button" value="추천하기" id="bt">
+				<td>
+					<span th:text="${list.recommend}">0</span><!--p,div 태그는 개행됨-->
+					<input type="button" value="추천하기" id="bt">
 					<input type="hidden" value="1" id="boardnum">
-					<div id="cnt"></div>
+				<div id="cnt"></div>
 				</td>
             </tr>
             <td></td>
@@ -144,17 +146,18 @@ $(document).ready(function()
 	        </span>
 			</td>
         </table>
-        <!-- 리플 작성폼 -->
-		<div>
-			<form>
-	        	리플쓰기<input type="text"> 
-	            <input type="submit" value="확인">   
-        	</form>
-		</div>
+	</form>
+	<!-- 리플 작성폼 -->
+	<div>
+		<form>
+			리플쓰기<input type="text">
+			<input type="submit" value="확인">
+		</form>
+	</div>
 		
-		<!-- 목록 출력 영역 -->
-		<div id="listDiv"></div>
+	<!-- 목록 출력 영역 -->
+	<div id="listDiv"></div>
         
-    </section>
+    </form>
 </body>
 </html>

@@ -36,9 +36,11 @@
         boardnum
         , memberid
         , inputdate
+        , hits
         , title
         , contents
         , category
+        , recommend
     from
         bbs_board
     where

@@ -33,14 +33,14 @@ $(document).ready(function()
 </head>
 <body>
 	<h1> [ 게시판 ]</h1>
-	<spam sec:authorize = "isAuthenticated()">
+	<span sec:authorize = "isAuthenticated()">
 		<a th:href="@{/board/write}">글쓰기</a> 
 	</span>
 	
 	<h3>카테고리별로 보기</h3>
 	<a th:href="@{/board/select(category='notice')}"> 공지 </a> <a th:href="@{/board/select(category='hobby')}"> 취미 </a> <a th:href="@{/board/select(category='talk')}">잡담</a> 
 	<h3>정렬하기</h3>
-	<a th:href="@{/board/board(hits='hits')}"> 조회순 </a> <a th:href="@{/board/board(recommend='recommend')}"> 추천순 </a> <a <a th:href="@{/board/board}"> 최근글순 </a> 
+	<a th:href="@{/board/board(hits='hits')}"> 조회순 </a> <a th:href="@{/board/board(recommend='recommend')}"> 추천순 </a> <a th:href="@{/board/board}"> 최근글순 </a>
 	
 	<!-- 글목록 출력 영역 -->
 	<table >

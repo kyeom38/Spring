@@ -35,13 +35,13 @@ public class BoardController
 	@Autowired
 	BoardDAO dao;
 	
-	//게시판 리스트  
-	@ResponseBody
+	//게시판 리스트
 	@GetMapping("board")
-	public ArrayList<Board> list() 
+	public String list(Model model)
 	{
         ArrayList<Board> list = service.list();
-        return list;
+		model.addAttribute("list", list);
+        return "board/board";
     }
 	
 	//글쓰기로 이동

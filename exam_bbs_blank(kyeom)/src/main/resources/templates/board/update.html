@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
 <meta charset="UTF-8">
 <title>글 수정 </title>
@@ -10,15 +12,15 @@
 	<table>
 		
 		<tr>
-			<input type="hidden" name="boardnum" th:value="${board.boardnum}"></td>
+			<input type="hidden" name="boardnum" th:value="${b.boardnum}"></td>
 		</tr>
 		<tr>
 			<th>카테고리</th> 
 			<td>
 				<select name="category">
-					<option value="talk">잡담</option>
-					<option value="hobbly">취미</option>
-					<option value="notice">공지</option>
+					<option value="잡담">잡담</option>
+					<option value="취미">취미</option>
+					<option value="공지">공지</option>
 				</select>
 			</td>
 		</tr>
